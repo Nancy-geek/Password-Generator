@@ -1,5 +1,5 @@
 import { useState , useCallback, useEffect, useRef} from 'react'
-
+// import './index.css'       no use here , already imported in main file 
 import './App.css'
 // import { useEffect } from 'react'
 
@@ -17,14 +17,14 @@ function App() {
       if(numberAllowed) str+="123456789"
 
       for (let i = 0; i <length; i++) {
-       let char= Math.floor(Math.random()*str.length +1 );
+       let char= Math.floor(Math.random()*str.length +1 );      // +1 as value would be in points 
         pass+=str.charAt(char);
       }
       setPassword(pass)
 
     },
     [length, character, numberAllowed, setPassword ]           // setpassword (a function) is written here for optimisation
-    // not password in dependencies as it will go in inifinite loop kyuki ek char ki bhi change hote hi pura password change ho raha 
+    // not password in dependencies as it will go in inifinite loop kyuki ek char ki bhi change hote hi pura password change ho raha j
     // used setpassword function here because jisse ye function be cache me loaded for better optimisation while using callback function 
 /* By using the useCallback hook, we can create memoized functions and pass them as props to child components. This ensures that only the necessary child components are rendered and updated when specific actions occur, resulting in improved performanc */
     )
@@ -48,9 +48,9 @@ function App() {
   return (
     <>
       <h1 className='text-center , text-white text-5xl'>Password Generator</h1>
-      <div className='  m-auto  border-gray-500 border-2 shadow-lg  rounded-md my-7 max-w-lg overflow-hidden'>
+      <div className='  m-auto  border-gray-500 border-2 shadow-lg shadow-fuchsia-400 rounded-md my-7 max-w-lg overflow-hidden'>
         
-        <div className='outline-none flex overflow-hidden w-full '>
+        <div className='outline-none flex flex-col sm:flex-row overflow-hidden w-full '>
           <input
           type="text"
           value={password}
@@ -65,30 +65,29 @@ function App() {
            <button className='bg-yellow-200 hover:bg-yellow-300 p-2 text-black border-black active:border-2  active:shadow-sm ' 
            onClick={copyPasswordToClipboard}
            >        
-           
             Copy
            </button>
         </div>
 
-        <div className='my-9 px-2  flex justify-evenly'>
-          <div className='flex'>
+        <div className='my-9 px-2  flex flex-col justify-center sm:flex-row sm:justify-evenly'>
+          <div className='flex  justify-center'>
             <input type="range" min={6} max={50} 
             value={length}
-            className='cursor-pointer '
+            className='cursor-pointer text-center'
             onChange={(e)=> setLength(e.target.value) } />
             <label className='mx-1 text-white' > Length {length}</label>
           </div>
 
-          <div className='flex'>
+          <div className='flex  justify-center'>
           <input type="checkbox" 
           defaultChecked={numberAllowed}
           onChange={ 
             ()=> setnumber((prev)=>!prev )
             }  />
-            <label className='mx-1  text-white'> Number</label>
+            <label className='mx-1 text-white'> Number</label>
           </div>
 
-          <div className='flex'>
+          <div className='flex justify-center'>
           <input type="checkbox" 
           defaultChecked={character}
           onChange={ 
